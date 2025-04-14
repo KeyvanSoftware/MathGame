@@ -29,35 +29,36 @@ internal class Helpers
         Console.WriteLine("---------------------------------------------------");
         foreach (var game in games)
         {
-            Console.WriteLine($"{game.Date} - {game.Type}: {game.Score}pts");
+            Console.WriteLine($"{game.Date} - {game.Difficulty} {game.Type}: {game.Score}pts");
         }
         Console.WriteLine("---------------------------------------------------\n");
         Console.WriteLine("Press any key to return to Main Menu");
         Console.ReadLine();
     }
-    internal static void AddToHistory(int gameScore, GameType gameType)
+    internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty difficulty)
     {
         games.Add(new Game
         {
             Date = DateTime.Now,
             Score = gameScore,
-            Type = gameType
+            Type = gameType,
+            Difficulty = difficulty
         });
     }
 
 
-    internal static int[] GetDivisionNumbers()
+    internal static int[] GetDivisionNumbers(int max)
     {
         var random = new Random();
-        var firstNumber = random.Next(0, 99);
-        var secondNumber = random.Next(0, 99);
+        var firstNumber = random.Next(0, max);
+        var secondNumber = random.Next(1, max);
 
         var result = new int[2];
 
         while (firstNumber % secondNumber != 0)
         {
-            firstNumber = random.Next(0, 99);
-            secondNumber = random.Next(0, 99);
+            firstNumber = random.Next(0, max);
+            secondNumber = random.Next(1, max);
         }
 
         result[0] = firstNumber;

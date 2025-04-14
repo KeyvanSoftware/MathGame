@@ -29,20 +29,21 @@ internal class Helpers
         Console.WriteLine("---------------------------------------------------");
         foreach (var game in games)
         {
-            Console.WriteLine($"{game.Date} - {game.Difficulty} {game.Type}: {game.Score}pts");
+            Console.WriteLine($"{game.Date} - {game.Difficulty} {game.Type}: {game.Score}pts - {game.TimeTaken} time taken to complete");
         }
         Console.WriteLine("---------------------------------------------------\n");
         Console.WriteLine("Press any key to return to Main Menu");
         Console.ReadLine();
     }
-    internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty difficulty)
+    internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty difficulty, string timeTaken)
     {
         games.Add(new Game
         {
             Date = DateTime.Now,
             Score = gameScore,
             Type = gameType,
-            Difficulty = difficulty
+            Difficulty = difficulty,
+            TimeTaken = timeTaken
         });
     }
 

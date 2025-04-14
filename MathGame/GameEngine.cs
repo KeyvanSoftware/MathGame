@@ -1,9 +1,11 @@
-﻿using MathGame.Models;
+﻿using System.Diagnostics;
+using MathGame.Models;
 
 namespace MathGame;
 
 internal class GameEngine
 {
+    Stopwatch stopWatch = new Stopwatch();
     internal void AdditionGame(string message, GameDifficulty difficulty)
     {
         Console.Clear();
@@ -14,6 +16,7 @@ internal class GameEngine
         int firstNumber;
         int secondNumber;
         int max = 9;
+        stopWatch.Start();
 
         switch (difficulty)
         {
@@ -48,10 +51,17 @@ internal class GameEngine
                 Console.ReadLine();
             }
         }
+
+        stopWatch.Stop();
+        TimeSpan ts = stopWatch.Elapsed;
+        string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}",
+            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
+        Console.WriteLine("Time taken to complete: " + elapsedTime);
         Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu.");
         Console.ReadLine();
 
-        Helpers.AddToHistory(score, GameType.Addition, difficulty);
+        Helpers.AddToHistory(score, GameType.Addition, difficulty, elapsedTime);
     }
 
     internal void SubtractionnGame(string message, GameDifficulty difficulty)
@@ -64,6 +74,7 @@ internal class GameEngine
         int firstNumber;
         int secondNumber;
         int max = 9;
+        stopWatch.Start();
 
         switch (difficulty)
         {
@@ -97,10 +108,17 @@ internal class GameEngine
                 Console.ReadLine();
             }
         }
+
+        stopWatch.Stop();
+        TimeSpan ts = stopWatch.Elapsed;
+        string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}",
+            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
+        Console.WriteLine("Time taken to complete: " + elapsedTime);
         Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu.");
         Console.ReadLine();
 
-        Helpers.AddToHistory(score, GameType.Subtraction, difficulty);
+        Helpers.AddToHistory(score, GameType.Subtraction, difficulty, elapsedTime);
     }
 
     internal void MultiplicationGame(string message, GameDifficulty difficulty)
@@ -113,6 +131,7 @@ internal class GameEngine
         int firstNumber;
         int secondNumber;
         int max = 9;
+        stopWatch.Start();
 
         switch (difficulty)
         {
@@ -146,16 +165,24 @@ internal class GameEngine
                 Console.ReadLine();
             }
         }
+
+        stopWatch.Stop();
+        TimeSpan ts = stopWatch.Elapsed;
+        string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}",
+            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
+        Console.WriteLine("Time taken to complete: " + elapsedTime);
         Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu.");
         Console.ReadLine();
 
-        Helpers.AddToHistory(score, GameType.Multiplication, difficulty);
+        Helpers.AddToHistory(score, GameType.Multiplication, difficulty, elapsedTime);
     }
 
     internal void DivisionGame(string message, GameDifficulty difficulty)
     {
         var score = 0;
         int max = 99;
+        stopWatch.Start();
 
         switch (difficulty)
         {
@@ -193,9 +220,16 @@ internal class GameEngine
                 Console.ReadLine();
             }
         }
+
+        stopWatch.Stop();
+        TimeSpan ts = stopWatch.Elapsed;
+        string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}",
+            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
+        Console.WriteLine("Time taken to complete: " + elapsedTime);
         Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu.");
         Console.ReadLine();
 
-        Helpers.AddToHistory(score, GameType.Division, difficulty);
+        Helpers.AddToHistory(score, GameType.Division, difficulty, elapsedTime);
     }
 }

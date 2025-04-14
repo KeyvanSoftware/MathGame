@@ -99,7 +99,6 @@ internal class Menu
                         break;
                 }
             }
-
         } while (isGameOn);
     }
 }

@@ -90,4 +90,43 @@ internal class Helpers
         }
         return name;
     }
+
+    internal static (int first, int second) GenerateQuestionNumbers(string symbol, int max, Random random)
+    {
+        int firstNumber;
+        int secondNumber;
+
+        if (symbol == "/")
+        {
+            var divisionNumbers = Helpers.GetDivisionNumbers(max);
+            firstNumber = divisionNumbers[0];
+            secondNumber = divisionNumbers[1];
+        }
+        else
+        {
+            firstNumber = random.Next(1, max);
+            secondNumber = random.Next(1, max);
+        }
+        return (firstNumber, secondNumber);
+    }
+
+    internal static bool AskQuestionAndEvaluate(string symbol, int firstNumber, int secondNumber, Func<int, int, int> operation)
+    {
+        Console.WriteLine($"{firstNumber} {symbol} {secondNumber}");
+        var isCorrect = false;
+        var userInput = Console.ReadLine();
+        userInput = Helpers.ValidateResult(userInput);
+
+        if (int.Parse(userInput) == operation(firstNumber, secondNumber))
+        {
+            Console.WriteLine("Your answer was correct! Type any key for the next question");
+            isCorrect = true;
+        }
+        else
+        {
+            Console.WriteLine("Your answer was incorrect. Type any key for the next question");
+        }
+        Console.ReadLine();
+        return isCorrect;
+    }
 }

@@ -51,6 +51,55 @@ internal class Menu
             }
         } while (!validDifficulty);
 
+        //do
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("""
+        //        What game would you like to play today? Choose from the options below:
+        //        V - View Previous Games
+        //        A - Addition
+        //        S - Subtraction
+        //        M - Multiplication
+        //        D - Division
+        //        Q - Quit the program
+        //        """);
+        //    Console.WriteLine("---------------------------------------------------");
+
+        //    var gameSelected = Console.ReadLine();
+
+        //    if (gameSelected != null)
+        //    {
+
+        //        switch (gameSelected.Trim().ToLower())
+        //        {
+        //            case "v":
+        //                Helpers.PrintGames();
+        //                break;
+        //            case "a":
+        //                engine.AdditionGame("Addition game", gameDifficulty);
+        //                break;
+        //            case "s":
+        //                engine.SubtractionnGame("Subtraction game", gameDifficulty);
+        //                break;
+        //            case "m":
+        //                engine.MultiplicationGame("Multiplication game", gameDifficulty);
+        //                break;
+        //            case "d":
+        //                engine.DivisionGame("Division game", gameDifficulty);
+        //                break;
+        //            case "q":
+        //                Console.WriteLine("Goodbye");
+        //                isGameOn = false;
+        //                break;
+        //            default:
+        //                Console.Clear();
+        //                Console.WriteLine("Invalid Input");
+        //                Console.WriteLine("Press any key to show menu");
+        //                Console.ReadLine();
+        //                break;
+        //        }
+        //    }
+        //} while (isGameOn);
         do
         {
             Console.Clear();
@@ -76,16 +125,16 @@ internal class Menu
                         Helpers.PrintGames();
                         break;
                     case "a":
-                        engine.AdditionGame("Addition game", gameDifficulty);
+                        engine.ArithmeticGame("Addition game", GameType.Addition, gameDifficulty, (x, y) => x + y, "+");
                         break;
                     case "s":
-                        engine.SubtractionnGame("Subtraction game", gameDifficulty);
+                        engine.ArithmeticGame("Subtraction game", GameType.Subtraction, gameDifficulty, (x, y) => x - y, "-");
                         break;
                     case "m":
-                        engine.MultiplicationGame("Multiplication game", gameDifficulty);
+                        engine.ArithmeticGame("Multiplication game", GameType.Multiplication, gameDifficulty, (x, y) => x * y, "*");
                         break;
                     case "d":
-                        engine.DivisionGame("Division game", gameDifficulty);
+                        engine.ArithmeticGame("Division game", GameType.Division, gameDifficulty, (x, y) => x / y, "/");
                         break;
                     case "q":
                         Console.WriteLine("Goodbye");

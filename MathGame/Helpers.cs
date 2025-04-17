@@ -1,9 +1,11 @@
-﻿using MathGame.Models;
+﻿using System.Diagnostics;
+using MathGame.Models;
 
 namespace MathGame;
 
 internal class Helpers
 {
+    internal static readonly Random random = new();
     internal static List<Game> games = new List<Game>
     {
         //new Game { Date = DateTime.Now.AddDays(1), Type = GameType.Addition, Score = 5 },
@@ -20,6 +22,14 @@ internal class Helpers
         //new Game { Date = DateTime.Now.AddDays(12), Type = GameType.Division, Score = 2 },
         //new Game { Date = DateTime.Now.AddDays(13), Type = GameType.Subtraction, Score = 5 },
     };
+
+    internal static readonly Dictionary<GameType, (Func<int, int, int> operation, string symbol)> arithmeticOperationsMap = new()
+        {
+            { GameType.Addition, ((x, y) => x + y, "+") },
+            { GameType.Subtraction, ((x, y) => x - y, "-") },
+            { GameType.Multiplication, ((x, y) => x * y, "*") },
+            { GameType.Division, ((x, y) => x / y, "/") }
+        };
 
 
     internal static void PrintGames()
@@ -91,7 +101,7 @@ internal class Helpers
         return name;
     }
 
-    internal static (int first, int second) GenerateQuestionNumbers(string symbol, int max, Random random)
+    internal static (int first, int second) GenerateQuestionNumbers(string symbol, int max)
     {
         int firstNumber;
         int secondNumber;
@@ -119,14 +129,47 @@ internal class Helpers
 
         if (int.Parse(userInput) == operation(firstNumber, secondNumber))
         {
-            Console.WriteLine("Your answer was correct! Type any key for the next question");
+            Console.WriteLine("\nYour answer was correct! Type any key for the next question");
             isCorrect = true;
         }
         else
         {
-            Console.WriteLine("Your answer was incorrect. Type any key for the next question");
+            Console.WriteLine("\nYour answer was incorrect. Type any key for the next question");
         }
         Console.ReadLine();
         return isCorrect;
+    }
+
+    internal static void PrintGameHeader(GameType type)
+    {
+        Console.WriteLine($"Welcome to the {type} Game!\n");
+    }
+
+    internal static int GetMax(string symbol, GameDifficulty difficulty)
+    {
+        int max = (symbol, difficulty) switch
+        {
+            ("/", GameDifficulty.Easy) => 99,
+            ("/", GameDifficulty.Medium) => 999,
+            ("/", GameDifficulty.Hard) => 9999,
+            (_, GameDifficulty.Medium) => 99,
+            (_, GameDifficulty.Hard) => 999,
+            _ => 9
+        };
+        return max;
+    }
+
+    internal static string TimeTaken(long startTime)
+    {
+        TimeSpan elapsedTime = Stopwatch.GetElapsedTime(startTime);
+        return elapsedTime.ToString(@"m\:ss\:ff");
+    }
+
+    internal static void PrintEndMessages(int score, string elapsedTime)
+    {
+        Console.Clear();
+        Console.WriteLine($"Time taken to complete: {elapsedTime}");
+        Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu.");
+        Console.ReadLine();
     }
 }
